@@ -33,6 +33,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
 
 [[package]]
+name = "api"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "serde",
+ "shared",
+ "utoipa",
+]
+
+[[package]]
 name = "arbitrary"
 version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1168,10 +1178,12 @@ name = "rusty-llm-app"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "api",
  "axum",
  "rstest",
  "serde",
  "serde_json",
+ "shared",
  "tokio",
  "utoipa",
  "utoipa-swagger-ui",
@@ -1268,6 +1280,10 @@ dependencies = [
  "cpufeatures",
  "digest",
 ]
+
+[[package]]
+name = "shared"
+version = "0.1.0"
 
 [[package]]
 name = "shlex"

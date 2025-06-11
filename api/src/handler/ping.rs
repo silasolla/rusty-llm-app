@@ -1,20 +1,25 @@
 use std::borrow::Cow;
 use axum::Json;
-use serde::Serialize;
-use utoipa::ToSchema;
+use utoipa::OpenApi;
+use crate::model::ping::PingResponse;
 
-#[derive(Serialize, ToSchema)]
-pub struct PingResponse {
-    #[schema(example = "Pong")]
-    pub message: Cow<'static, str>,
-}
+#[derive(OpenApi)]
+#[openapi(
+    paths(
+        ping,
+    ),
+    components(
+        schemas(PingResponse),
+    )
+)]
+pub struct PingApiDoc;
 
 #[utoipa::path(
     get,
     path = "/ping",
     description = "Ping",
     responses(
-        (status = 200, description = "Pong", body = PingResponse)
+        (status = 200, description = "Pong", body = PingResponse),
     ),
 )]
 #[allow(clippy::unused_async)]

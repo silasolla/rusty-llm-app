@@ -3,7 +3,16 @@ name = "rusty-llm-app"
 version = "0.1.0"
 edition = "2024"
 
-[dependencies]
+[[bin]]
+name = "app"
+path = "src/bin/app.rs"
+
+[workspace]
+members = ["api", "shared"]
+
+[workspace.dependencies]
+api = { path = "./api" }
+shared = { path = "./shared" }
 anyhow = "1.0.98"
 axum = { version = "0.8.4", features = ["macros"] }
 serde = { version = "1.0.219", features = ["derive"] }
@@ -11,6 +20,18 @@ serde_json = "1.0.140"
 tokio = { version = "1.45.1", features = ["full"] }
 utoipa = { version = "5.3.1", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum", "reqwest"] }
+rstest = "0.25.0"
+
+[dependencies]
+api.workspace = true
+shared.workspace = true
+anyhow.workspace = true
+axum.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+utoipa.workspace = true
+utoipa-swagger-ui.workspace = true
 
 [dev-dependencies]
-rstest = "0.25.0"
+rstest.workspace = true
