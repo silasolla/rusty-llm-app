@@ -17,9 +17,9 @@ pub struct PingApiDoc;
 #[utoipa::path(
     get,
     path = "/ping",
-    description = "Ping",
+    description = "Sending a request to this endpoint returns a \"Pong\" message.",
     responses(
-        (status = 200, description = "Pong", body = PingResponse),
+        (status = 200, description = "Your request was successfully submitted.", body = PingResponse),
     ),
 )]
 #[allow(clippy::unused_async)]

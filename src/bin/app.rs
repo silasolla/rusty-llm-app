@@ -2,13 +2,17 @@ use std::net::{Ipv4Addr, SocketAddr};
 use anyhow::Result;
 use axum::Router;
 use tokio::net::TcpListener;
-use utoipa::OpenApi;
+use utoipa::{OpenApi, openapi::OpenApi as UtoipaOpenApi};
 use utoipa_swagger_ui::SwaggerUi;
 
-// Router
+// Api
 use api::{
+    // Docs
     handler::ping::PingApiDoc,
+    handler::llm::LlmApiDoc,
+    // Routes
     route::ping::build_ping_routers,
+    route::llm::build_llm_routers,
 };
 
 // Documentation
@@ -16,16 +20,22 @@ use api::{
 #[openapi(paths(), components(schemas()))]
 struct ApiDoc;
 
+// Merge Docs
+fn build_api_docs() -> UtoipaOpenApi {
+    let mut doc = ApiDoc::openapi();
+    doc.merge(PingApiDoc::openapi());
+    doc.merge(LlmApiDoc::openapi());
+    doc
+}
+
 // Create App
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Merge Docs
-    let mut doc = ApiDoc::openapi();
-    doc.merge(PingApiDoc::openapi());
     // Create Routes
     let app = Router::new()
         .merge(build_ping_routers())
-        .merge(SwaggerUi::new("/doc").url("/api-doc/openapi.json", doc));
+        .merge(build_llm_routers())
+        .merge(SwaggerUi::new("/doc").url("/api-doc/openapi.json", build_api_docs()));
     // Listen
     let addr = SocketAddr::new(Ipv4Addr::LOCALHOST.into(), 8080);
     let listener = TcpListener::bind(addr).await?;
