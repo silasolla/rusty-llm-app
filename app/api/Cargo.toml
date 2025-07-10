@@ -1,0 +1,11 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum.workspace = true
+serde.workspace = true
+utoipa.workspace = true
+shared.workspace = true
+registry.workspace = true
