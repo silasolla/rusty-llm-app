@@ -1,0 +1,10 @@
+variable "name" {}
+variable "project_id" {}
+variable "region" {}
+variable "repo_name" {}
+variable "image_name" {}
+variable "deletion_protection" {}
+variable "network" {}
+variable "subnetwork" {}
+variable "add_public_invoker" {}
+variable "roles" {}
